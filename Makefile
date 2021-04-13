@@ -3,6 +3,7 @@
 .PHONY: build \
 		ci \
 		clean \
+		docker_build \
 		help \
 		install \
 		reload \
@@ -11,6 +12,9 @@
 		watch
 
 .SILENT:
+
+docker_build:
+	docker run --rm -v "${shell pwd}":/usr/src --user $(shell id -u) -ti node:lts make -C /usr/src build
 
 # generate assets
 build: tree

@@ -35,7 +35,7 @@ export default class AssetList extends CustomElement(HTMLOListElement) {
 
         if (firstHighlightedAssetItem === undefined) {
             if (this.highlightedGraphemes !== '') {
-                this.highlight(null, 'Escape')
+                this.highlight(null, 'Backspace')
             }
 
             return

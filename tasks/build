@@ -4,10 +4,6 @@ development_environment() {
 	[ "$ENVIRONMENT" = 'development' ]
 }
 
-replace() {
-	WHAT=$1 WITH=$(cat "$2") ruby -p -e 'gsub(ENV["WHAT"], ENV["WITH"])'
-}
-
 script() {
 	local output=$(mktemp)
 
@@ -22,7 +18,7 @@ script() {
 		mv "$buffer" "$output"
 	fi
 
-	replace '{{script}}' "$output"
+	sed "s/{{script}}/$(sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g' $output)/"
 }
 
 style() {
@@ -35,7 +31,7 @@ style() {
 
 	npx sass "${options[@]}" 'client/styles/main.scss' > "$output"
 	[ "$?" != '0' ] && return "$?"
-	replace '{{style}}' "$output"
+	sed "s/{{style}}/$(sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g' $output)/"
 }
 
 version() {
@@ -43,7 +39,8 @@ version() {
 
 	node -e 'require("./package").version' -p > "$output"
 	[ "$?" != '0' ] && return "$?"
-	replace '{{version}}' "$output"
+
+	sed "s/{{version}}/$(sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g' $output)/"
 }
 
 main() {

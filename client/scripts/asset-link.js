@@ -6,17 +6,25 @@ export default class AssetLink extends CustomElement(HTMLAnchorElement) {
 
     highlighted = false
 
-    highlight(highlightedGraphemes) {
-        const regExp = new RegExp(`^(${highlightedGraphemes})`, 'iu')
+    makeRegex(str) {
+        const escape = ['.', '(', ')', '[', ']', '{', '}', '+']
+        for (const ch of escape) {
+            str = str.replaceAll(ch, '\\'+ch)
+        }
+        return '('+str+')'
+    }
 
-        this.highlighted = highlightedGraphemes !== '' && regExp.test(this.url)
+    highlight(highlightedGraphemes) {
+        const regExp = new RegExp(this.makeRegex(highlightedGraphemes), 'iu')
+
+        this.highlighted = highlightedGraphemes !== '' && regExp.test(decodeURIComponent(this.url))
 
         if (this.highlighted) {
             const template = '<mark class="asset-mark">$1</mark>'
 
-            this.innerHTML = this.url.replace(regExp, template)
+            this.innerHTML = decodeURIComponent(this.url).replace(regExp, template)
         } else {
-            this.textContent = this.url
+            this.textContent = decodeURIComponent(this.url)
         }
 
         this.classList.toggle('asset-link--highlighted', this.highlighted)

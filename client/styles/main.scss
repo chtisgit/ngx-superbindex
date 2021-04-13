@@ -42,8 +42,11 @@ html {
         padding: 0;
     }
 
+    &-descr {
+        opacity: 0.65;
+    }
+
     &-item {
-        display: block;
 
         &--directory {
             color: var(--theme-link-directory);
@@ -52,14 +55,9 @@ html {
         &--file {
             color: var(--theme-link-file);
         }
-
-        &--directory + &--file {
-            margin-top: 1rem;
-        }
     }
 
     &-link {
-        display: block;
         line-height: 1.7;
         opacity: 1;
         overflow: hidden;
@@ -69,7 +67,6 @@ html {
 
         &:any-link {
             color: inherit;
-            text-decoration: none;
         }
 
         &:focus,

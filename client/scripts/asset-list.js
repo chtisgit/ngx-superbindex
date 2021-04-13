@@ -7,10 +7,19 @@ export default class AssetList extends CustomElement(HTMLOListElement) {
     highlightedGraphemes = ''
     keystroke = this.keystroke.bind(this)
 
-    highlight(key) {
-        if (key === '') {
+    highlight(key, code) {
+        switch (code) {
+        case 'Backspace':
+            if (this.highlightedGraphemes === '') {
+                this.highlightedGraphemes = '..'
+                break
+            }
+            this.highlightedGraphemes = this.highlightedGraphemes.substr(0, this.highlightedGraphemes.length-1)
+            break
+        case 'Escape':
             this.highlightedGraphemes = ''
-        } else {
+            break
+        default:
             this.highlightedGraphemes += key.toLocaleLowerCase()
         }
 
@@ -26,7 +35,7 @@ export default class AssetList extends CustomElement(HTMLOListElement) {
 
         if (firstHighlightedAssetItem === undefined) {
             if (this.highlightedGraphemes !== '') {
-                this.highlight('')
+                this.highlight(null, 'Escape')
             }
 
             return
@@ -43,11 +52,18 @@ export default class AssetList extends CustomElement(HTMLOListElement) {
         document.body.addEventListener('keyup', this.keystroke)
     }
 
-    keystroke({ key }) {
-        if (key === 'Escape') {
-            this.highlight('')
-
+    keystroke({ key, code, ctrlKey, altKey, metaKey}) {
+        if (ctrlKey || altKey || metaKey) {
             return
+        }
+
+        switch(code) {
+        case 'Escape':
+        case 'Backspace':
+            this.highlight(null, code)
+            return
+        default:
+            break
         }
 
         const notGrapheme = key.length !== 1;

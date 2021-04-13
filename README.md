@@ -56,3 +56,17 @@ location / {
 ```
 
 This one is very good. There is no need for other themes.
+
+## Navigation
+
+The user can navigate with the mouse or the keyboard. Keyboard allows for very fast navigation.
+
+* Enter a part of a name of the file or the directory you want to open on the keyboard. Choose a unique part of
+  the name, e.g. if you have 3 directories:
+  * vacation2018/
+  * vacation2019/
+  * vacation2020/
+
+  don't type "vac", but "18", "19" or "020", then press return to enter the respective directory.
+* Mistyped? Hit *Backspace* to remove the last typed character or *Escape* to reset the selection entirely.
+* Entered the wrong directory? Hitting *Backspace* will highlight the parent directory "..", then hit *Return* to move up. If you have an active selection get rid of it by hitting *Escape* before using *Backspace*.

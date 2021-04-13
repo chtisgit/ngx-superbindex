@@ -8,6 +8,7 @@ export default class AssetList extends CustomElement(HTMLOListElement) {
     keystroke = this.keystroke.bind(this)
 
     highlight(key, code) {
+        const old = this.highlightedGraphemes;
         switch (code) {
         case 'Backspace':
             if (this.highlightedGraphemes === '') {
@@ -35,7 +36,8 @@ export default class AssetList extends CustomElement(HTMLOListElement) {
 
         if (firstHighlightedAssetItem === undefined) {
             if (this.highlightedGraphemes !== '') {
-                this.highlight(null, 'Backspace')
+                this.highlightedGraphemes = old;
+                this.highlight('');
             }
 
             return

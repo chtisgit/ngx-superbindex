@@ -1,6 +1,6 @@
 # ngx-superbindex
 
-This is a **fork** of "ngx-superbindex" tuned to my likings. Thanks for the good work!
+This is a **fork** of [ngx-superbindex](https://github.com/gibatronic/ngx-superbindex) tuned to my likings. Thanks for the good work!
 
 <img align="right" hspace="16" vspace="16" src="https://i.giphy.com/media/zMrfG2vm1JXscCI7Ka/source.gif" width="267" height="572">
 
